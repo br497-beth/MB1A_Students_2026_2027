@@ -1,0 +1,11 @@
+---
+title: "HPA brain data"
+author: "Beth Ravilious"
+---
+I am calculating the total number of genes with regionally elevated expression in the forebrain (Cerebral cortex, Basal ganglia, Thalamus, Hypothalamus) for Humans, Pigs and Mice.
+```{r}
+print(paste("Human", sum(180, 83, 57, 110)))
+print(paste("Pig", sum(109, 157, 31, 45)))
+print(paste("Mouse", sum(55, 185, 60, 98)))
+```
+In conclusion, Humans had the greatest number of genes with regionally elevated expression followed by Pigs and then Mice.
