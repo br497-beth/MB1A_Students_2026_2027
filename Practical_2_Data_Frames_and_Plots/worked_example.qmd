@@ -25,4 +25,9 @@ bird_migration_selected <- bird_connectivity |>
   rename(Winter_Longitude = winterLongitude, Winter_Latitude = winterLatitude, Stopover_Longitude = pslon, Stopover_Latitude = pslat, Iberian_Longitude = iblon, Iberian_Latitude = iblat, Westmost_Longitude = awestlon, Westmost_Latitude = awestlat)
 
 gt(bird_migration_selected)
+
+bird_breeding_exc <- bird_breeding_selected |> filter(Site != "Spain")
+gt(bird_breeding_exc)
+bird_migration_exc <- bird_migration_selected |> filter(Site != "Spain")
+gt(bird_migration_exc)
 ```
