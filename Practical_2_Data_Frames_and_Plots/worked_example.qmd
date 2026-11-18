@@ -38,14 +38,14 @@ bird_migration_grouped <- bird_migration_exc |> group_by(Site)
 glimpse(bird_migration_grouped)
 bird_migration_summary <- bird_migration_grouped |>
   summarise(
-    Median_Lat_Stopover = median(Stopover_Latitude, na.rm = TRUE),
-    Median_Long_Stopover = median(Stopover_Longitude, na.rm = TRUE),
-    Median_Lat_Iberian = median(Iberian_Latitude, na.rm = TRUE),
-    Median_Long_Iberian = median(Iberian_Longitude, na.rm = TRUE),
-    Median_Lat_Westmost = median(Westmost_Latitude, na.rm = TRUE),
-    Median_Long_Westmost = median(Westmost_Longitude, na.rm = TRUE),
-    Median_Lat_Winter = median(Winter_Latitude, na.rm = TRUE),
-    Median_Long_Winter = median(Winter_Longitude, na.rm = TRUE),
+    Stopover_Latitude = median(Stopover_Latitude, na.rm = TRUE),
+    Stopover_Longitude = median(Stopover_Longitude, na.rm = TRUE),
+    Iberian_Latitude = median(Iberian_Latitude, na.rm = TRUE),
+    Iberian_Longitude = median(Iberian_Longitude, na.rm = TRUE),
+    Westmost_Latitude = median(Westmost_Latitude, na.rm = TRUE),
+    Westmost_Longitude = median(Westmost_Longitude, na.rm = TRUE),
+    Winter_Latitude = median(Winter_Latitude, na.rm = TRUE),
+    Winter_Longitude = median(Winter_Longitude, na.rm = TRUE),
   )
 
 gt(bird_migration_summary)
@@ -74,5 +74,40 @@ gt(autumn_data)
 
 write_csv(spring_data, "output/birds_spring.csv")
 write_csv(autumn_data, "output/birds_autumn.csv")
+```
+```{r}
+library(tidyverse)
+library(gt)
+
+min_lon <- spring_data |>
+  pull(Longitude) |>
+  min()
+max_lon <- spring_data |>
+  pull(Longitude) |>
+  max()
+min_lat <- spring_data |>
+  pull(Latitude) |>
+  min()
+max_lat <- spring_data |>
+  pull(Latitude) |>
+  max()
+
+ggplot(spring_data, aes(
+  x = Longitude,
+  y = Latitude,
+  colour = Site,
+  shape = Location_Type
+)) +
+  geom_point(size=3) +
+  annotation_borders(linewidth = 0.2) +
+  coord_quickmap(
+    xlim = c(min_lon -2, max_lon + 2), 
+    ylim = c(min_lat -2, max_lat +2)
+  ) +
+  geom_path(aes(group = Site)) +
+  ggtitle("Pied Flycatcher Spring Migration Routes") +
+  xlab("Longitude (°)") +
+  ylab("Latitude (°)") +
+  theme_minimal()
 ```
 
